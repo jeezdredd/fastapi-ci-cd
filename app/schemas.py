@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List
 from pydantic import BaseModel, Field
 
+
 # ==== Ingredient ====
 class IngredientBase(BaseModel):
     name: str = Field(..., description="Название ингредиента")
@@ -26,7 +27,9 @@ class RecipeBase(BaseModel):
 
 
 class RecipeCreate(RecipeBase):
-    ingredients: List[IngredientCreate] = Field(default_factory=list, description="Список ингредиентов")
+    ingredients: List[IngredientCreate] = Field(
+        default_factory=list, description="Список ингредиентов"
+    )
 
 
 class RecipeListItem(BaseModel):

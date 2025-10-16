@@ -3,6 +3,7 @@ from app.main import app
 
 client = TestClient(app)
 
+
 def test_get_recipes_empty():
     response = client.get("/recipes")
     assert response.status_code == 200

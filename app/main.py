@@ -60,9 +60,13 @@ def create_recipe(payload: schemas.RecipeCreate, db: Session = Depends(get_db)):
     from sqlalchemy import select
     from .models import Recipe
 
-    exists = db.execute(select(Recipe).where(Recipe.name == payload.name)).scalar_one_or_none()
+    exists = db.execute(
+        select(Recipe).where(Recipe.name == payload.name)
+    ).scalar_one_or_none()
     if exists:
-        raise HTTPException(status_code=409, detail="Recipe with this name already exists")
+        raise HTTPException(
+            status_code=409, detail="Recipe with this name already exists"
+        )
 
     recipe = crud.create_recipe(db, payload)
     return recipe
