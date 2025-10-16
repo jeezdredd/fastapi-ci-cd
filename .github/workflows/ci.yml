@@ -9,6 +9,8 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - name: Checkout code
@@ -24,11 +26,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run linters
+      - name: Sort imports
         run: |
+          pip install isort
+          isort --profile black .
+
+      - name: Format code with Black
+        run: |
+          pip install black
           black .
-          isort --check-only .
+
+      - name: Run linters (checks)
+        run: |
+          pip install flake8
+          isort --check-only --profile black .
+          black --check .
           flake8 .
 
       - name: Run tests
-        run: pytest --cov=app --maxfail=1 --disable-warnings -q
+        run: |
+          pip install pytest pytest-cov httpx
+          pytest --cov=app --maxfail=1 --disable-warnings -q
+
