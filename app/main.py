@@ -1,11 +1,13 @@
 from __future__ import annotations
+
 from typing import List
-from fastapi import FastAPI, Depends, HTTPException, Query
+
+from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from . import crud, schemas
 from .database import engine, get_db
 from .models import Base
-from . import schemas, crud
 
 Base.metadata.create_all(bind=engine)
 
@@ -58,6 +60,7 @@ def get_recipe(recipe_id: int, db: Session = Depends(get_db)):
 )
 def create_recipe(payload: schemas.RecipeCreate, db: Session = Depends(get_db)):
     from sqlalchemy import select
+
     from .models import Recipe
 
     exists = db.execute(

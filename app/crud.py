@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 from typing import List
-from sqlalchemy.orm import Session
+
 from sqlalchemy import select
+from sqlalchemy.orm import Session
+
 from . import models, schemas
 
 

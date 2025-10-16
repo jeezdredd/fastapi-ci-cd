@@ -1,7 +1,9 @@
 from __future__ import annotations
+
 from typing import List
-from sqlalchemy.orm import declarative_base, relationship, Mapped, mapped_column
-from sqlalchemy import Integer, String, Text, ForeignKey
+
+from sqlalchemy import ForeignKey, Integer, String, Text
+from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
 Base = declarative_base()
 
